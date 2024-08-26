@@ -10,4 +10,5 @@ public class Service {
     public boolean findStringInFile(String str){
         return database.isStringIn(str);
     }
+
 }

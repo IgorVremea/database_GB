@@ -28,4 +28,34 @@ public class DatabaseManager {
         }
         return filesNameList.toString();
     }
+    public boolean isExistFileByShortName(String fileName){
+        for (MyFile file : filesList){
+            if(file.getShortFileName().equals(fileName)) return true;
+        }
+        return false;
+    }
+    public MyFile getFileByShortName(String fileName){
+        for (MyFile file : filesList){
+            if(file.getShortFileName().equals(fileName)) return file;
+        }
+        return null;
+    }
+    public void createFile(String fileName){
+        MyFile newFile;
+        if(fileName.indexOf(".") == -1) {
+            newFile = new MyFile(databasePath + fileName + ".mydata");
+        } else {
+            newFile = new MyFile(databasePath + fileName);
+        }
+        filesList.add(newFile);
+    }
+    public void addRecordInFileByShortName(String fileName, String record){
+        MyFile tempFile = getFileByShortName(fileName);
+        if(tempFile != null){
+            tempFile.append(record);
+        } else {
+            createFile(fileName);
+            getFileByShortName(fileName).append(record);
+        }
+    }
 }

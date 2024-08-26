@@ -1,3 +1,4 @@
+import model.Parser;
 import model.Service;
 import model.files.DatabaseManager;
 import model.files.MyFile;
@@ -9,6 +10,13 @@ public class DBMS {
         ui.start();
 
         DatabaseManager databaseManager = new DatabaseManager("./src/database");
-        System.out.println(databaseManager.getFilesList());
+        System.out.println(databaseManager.getFilesList() + "\n");
+        Parser temp = new Parser();
+        try {
+            temp.parse("Vremea Igor Marcel 11.11.2001 078316153 m");
+            System.out.println(temp);
+        } catch (Exception e){
+            System.out.println(e.getMessage() + "\n" + e.getClass());
+        }
     }
 }
