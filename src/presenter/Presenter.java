@@ -10,4 +10,10 @@ public class Presenter {
         this.view = view;
         this.service = new Service();
     }
+    public void showDatabase(){
+        service.showDatabase();
+    }
+    public void addRecord(String record){
+        service.addRecord(record);
+    }
 }

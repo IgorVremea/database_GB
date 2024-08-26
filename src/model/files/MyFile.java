@@ -32,7 +32,6 @@ public class MyFile {
     public void setAddress(String address) {
         this.address = address;
     }
-
     public void write(String str) throws RuntimeException{
         try(FileWriter fw = new FileWriter(address)){
             fw.write(str);
@@ -42,7 +41,9 @@ public class MyFile {
     }
     public void append(String str) throws RuntimeException{
         try(FileWriter fw = new FileWriter(address, true)){
-            fw.append(str);
+            if(!isStringIn(str)){
+                fw.append(str + '\n');
+            }
         } catch (IOException e){
             throw new RuntimeException("File access error");
         }
@@ -58,10 +59,30 @@ public class MyFile {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(getFileName());
+        stringBuilder.append('\n');
+        try(BufferedReader file = new BufferedReader(new FileReader(address))) {
+            String line;
+            while ((line = file.readLine()) != null) {
+                stringBuilder.append("\t");
+                stringBuilder.append(line);
+                stringBuilder.append("\n");
+            }
+        } catch(IOException e){
+            throw new RuntimeException("File access error");
+        }
+        return stringBuilder.toString();
+    }
+
     private void parseFileName(){
-        int slashPos = address.lastIndexOf("\\");
-        if(slashPos != -1){
-            fileName = address.substring(slashPos + 1);
+        if(address.lastIndexOf("\\") != -1){
+            fileName = address.substring(address.lastIndexOf("\\") + 1);
+        } else if (address.lastIndexOf("/") != -1){
+            fileName = address.substring(address.lastIndexOf("/") + 1);
         } else {
             fileName = address;
         }

@@ -92,7 +92,7 @@ public class Parser {
     }
 
     public void parse(String str) throws IOException {
-        String arr[] = str.split(" ");
+        String[] arr = str.split("\s");
         if(arr.length != 6) throw new IOException("Wrong quantity of parameters");
         surname = parseWord(arr[0],"surname");
         name = parseWord(arr[1],"name");
@@ -168,6 +168,6 @@ public class Parser {
                 fatherName + ' ' +
                 getDateOfBirthStr() + ' ' +
                  '0' + phoneNumber + ' ' +
-                getSexStr();
+                getSex();
     }
 }

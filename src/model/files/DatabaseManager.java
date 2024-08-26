@@ -54,8 +54,14 @@ public class DatabaseManager {
         if(tempFile != null){
             tempFile.append(record);
         } else {
-            createFile(fileName);
-            getFileByShortName(fileName).append(record);
+            MyFile newFile = new MyFile(databasePath + "/" + fileName + ".mydata");
+            filesList.add(newFile);
+            newFile.append(record);
+        }
+    }
+    public void showAllRecords(){
+        for(MyFile file : filesList){
+            System.out.println(file.toString());
         }
     }
 }
